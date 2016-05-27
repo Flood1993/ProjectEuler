@@ -74,7 +74,7 @@ def prime_factorization(n):
 
     factor = 3
     maxFactor = int(n**0.5)
-    while n > 1 and factor < maxFactor:
+    while n > 1 and factor <= maxFactor:
         if n%factor == 0:
             n = n//factor
             lastFactor = factor
@@ -87,5 +87,31 @@ def prime_factorization(n):
         factor += 2
     if n != 1:
         res.append([n, 1])
+    
+    return res
+
+def number_of_divisors(n):
+    """
+    Returns the number of divisors of n
+    """
+    prime_fac = prime_factorization(n)
+    res = 1
+
+    for fac in prime_fac:
+        res *= (fac[1] + 1)
+
+    return res
+
+def totient(n):
+    """
+    Returns the Euler's totient function of n, that is, the count of the positive integers
+    up to n that are relatively prime to it
+    """
+    prime_fac = prime_factorization(n)
+    res = n
+
+    for fac in prime_fac:
+        print(fac)
+        res = int(res*(fac[0] - 1)/fac[0])
     
     return res

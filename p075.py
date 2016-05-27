@@ -1,4 +1,3 @@
-from functions import gcd, prime_factorization
+from functions import totient, prime_factorization
 
-print(prime_factorization(600851475143))
-print(prime_factorization(64))
+print(totient(5781357))

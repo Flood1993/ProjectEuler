@@ -33,15 +33,12 @@ def optimised_sieve(n):
                 res[j] = False
     return res
 
-import time
-start = time.time()
-my_primes2 = optimised_sieve(10**8)
-print(time.time() - start)
+def pythTriplet(m, n, d = 1):
+    """
+    Returns a Pythagorean triplet obtained from the values m and n.
 
-"""
-Sieve:
-10**5   0.01563s
-10**6   0.14063s
-10**7   1.77516s -> 0.7
-10**8   8.28
-"""
+    It will be primitive if and only if exactly one of m, n is even and gcd(m, n) = 1.
+    """
+    if m < n:
+        m, n = n, m
+    return [(m*m - n*n)*d, (2*m*n)*d, (m*m + n*n)*d]

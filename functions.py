@@ -42,3 +42,13 @@ def pythTriplet(m, n, d = 1):
     if m < n:
         m, n = n, m
     return [(m*m - n*n)*d, (2*m*n)*d, (m*m + n*n)*d]
+
+def gcd(a, b):
+    """
+    Returns the greatest common divisor of two numbers.
+
+    a is assumed to be greater than b
+    """
+    while b != 0:
+       a, b = b, a%b
+    return a

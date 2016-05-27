@@ -3,7 +3,7 @@ def prime_sieve(n):
     Returns a prime sieve with the numbers up to n
     """
     m = n+1
-    res = [True]*m # for i in range(m)
+    res = [True]*m
     res[0] = False
     res[1] = False
 
@@ -52,3 +52,40 @@ def gcd(a, b):
     while b != 0:
        a, b = b, a%b
     return a
+
+def prime_factorization(n):
+    """
+    Returns a list containing the prime factorization of a given number n
+
+    [[prime1, exp1], [prime2, exp2], ... [primeN, expN]]
+    """
+    res = []
+
+    if n%2 == 0:
+        lastFactor = 2
+        n = n//2
+        cnt = 1
+        while n%2 == 0:
+            n = n//2
+            cnt += 1
+        res.append([lastFactor, cnt])
+    else:
+        lastFactor = 1
+
+    factor = 3
+    maxFactor = int(n**0.5)
+    while n > 1 and factor < maxFactor:
+        if n%factor == 0:
+            n = n//factor
+            lastFactor = factor
+            cnt = 1
+            while n%factor == 0:
+                n = n//factor
+                cnt += 1
+            res.append([lastFactor, cnt])
+            maxFactor = int(n**0.5)
+        factor += 2
+    if n != 1:
+        res.append([n, 1])
+    
+    return res

@@ -1,6 +1,4 @@
-from functions import gcd
+from functions import gcd, prime_factorization
 
-print(gcd(9, 3))
-print(gcd(10, 3))
-print(gcd(81, 27))
-print(gcd(105, 30))
+print(prime_factorization(600851475143))
+print(prime_factorization(64))

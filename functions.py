@@ -111,7 +111,6 @@ def totient(n):
     res = n
 
     for fac in prime_fac:
-        print(fac)
         res = int(res*(fac[0] - 1)/fac[0])
     
     return res

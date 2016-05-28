@@ -13,7 +13,7 @@ def getNextNumber():
     return t - sub
 
 X = []
-for i in range(1, 501): # TODO: set this to 1001
+for i in range(1, 51): # TODO: set this to 1001
     toAdd = []
     for j in range(i):
         toAdd.append(getNextNumber())
@@ -36,54 +36,36 @@ for i in range(1, len(X)+1):
         toAdd.append([0, 0])
     sol.append(toAdd)
 
-# Create the tmp structure to hold the sums for a given position with a given depth
-partialSums = []
-for i in range(1, len(X)+1):
-    toAdd =  []
-    for k in range(i):
-        toAdd.append([0, 0])
-    partialSums.append(toAdd)
-
 # fill last row of solution with values
 lastRow = sol[len(sol) - 1]
 for i in range(len(lastRow)):
     lastRow[i][0] = X[len(X) - 1][i]
 
-# fill last row of solution with values
-lastPartialSums = partialSums[len(partialSums) - 1]
-for i in range(len(lastPartialSums)):
-    lastPartialSums[i][0] = X[len(X) - 1][i]
 
 # Bottom up approach
 for i in range(len(sol) - 2, -1, -1):
-    print(i)
+    if i%25 == 0:
+        print(i)
     for j in range(len(sol[i])):
         maxDepth = max(sol[i+1][j][1], sol[i+1][j+1][1])
+        val = X[i][j] + sol[i + 1][j + 1][0]
 
-        val = X[i][j] + partialSums[i + 1][j + 1][0]
         for k in range(0, maxDepth + 1):
-            #print("\t", k)
             val += X[i + k + 1][j]
 
-        if (val < X[i][j]):
+        if (val <= X[i][j]):
+            # The total sum obtained for that position is lower
             sol[i][j] = [val, maxDepth + 1]
-            partialSums[i][j] = [val, maxDepth + 1]
         else:
             sol[i][j] = [X[i][j], 0]
-            partialSums[i][j] = [X[i][j], 0]
-        #print(i, j, val, maxDepth)
 
 # TDD
-print(sol[0][0], "should be", -25)
-print(sol[1][1], "should be", -20)
-print(sol[2][2], "should be", -42)
+print(sol[0][0][0], "should be", -23)
+print(sol[1][1][0], "should be", -42)
 
 """
 print("sol")
 for row in sol:
-    print(row)
-print("partialSums")
-for row in partialSums:
     print(row)
 """
 
@@ -96,14 +78,4 @@ for row in sol:
         if pos[0] < lowest:
             lowest = pos[0]
 
-print("lowest", lowest)
-print("first", getNextNumber())
-print("first", getNextNumber())
-
-"""
-# Print triangles in readable format
-for row in sol:
-    print(row)
-for row in X:
-    print(row)
-"""
+print("Lowest:", lowest)

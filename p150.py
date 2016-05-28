@@ -13,7 +13,7 @@ def getNextNumber():
     return t - sub
 
 X = []
-for i in range(1, 51): # TODO: set this to 1001
+for i in range(1, 11): # TODO: set this to 1001
     toAdd = []
     for j in range(i):
         toAdd.append(getNextNumber())
@@ -47,17 +47,135 @@ for i in range(len(sol) - 2, -1, -1):
     if i%25 == 0:
         print(i)
     for j in range(len(sol[i])):
-        maxDepth = max(sol[i+1][j][1], sol[i+1][j+1][1])
-        val = X[i][j] + sol[i + 1][j + 1][0]
+        # We have to check both subtriangles and all of them in between on every step
 
-        for k in range(0, maxDepth + 1):
+        # Find lowest depth value
+        leftDepth = sol[i + 1][j][1]
+        rightDepth = sol[i + 1][j + 1][1]
+        diff = int(abs(leftDepth - rightDepth))
+
+        if leftDepth == 0 and rightDepth == 0:
+            # Just check those values
+            val = X[i][j] + sol[i + 1][j][0] + sol[i + 1][j + 1][0]
+
+            if val <= X[i][j]:
+                sol[i][j] = [val, 1]
+            else:
+                sol[i][j] = [X[i][j], 0]
+
+        elif leftDepth == rightDepth:
+            val = X[i][j] + sol[i + 1][j + 1][0]
+            depth = sol[i + 1][j + 1][1]
+
+            for k in range(0, depth + 1):
+                val += X[i + k + 1][j]
+
+            if val <= X[i][j]:
+                sol[i][j] = [val, depth + 1]
+            else:
+                sol[i][j] = [X[i][j], 0]
+
+        elif leftDepth < rightDepth:
+            val = X[i][j] + sol[i + 1][j][0]
+            depth = sol[i + 1][j][1]
+
+            for k in range(0, depth + 1):
+                val += X[i + k + 1][j + k + 1]
+            
+            if val <= X[i][j]:
+                sol[i][j] = [val, depth + 1]
+            else:
+                sol[i][j] = [X[i][j], 0]
+
+            q = depth + 2
+            while q < rightDepth + 2:
+                for w in range(0, q + 1):
+                    val += X[i + q][j + w]
+
+                if val <= sol[i][j][0]:
+                    sol[i][j] = [val, q]
+
+                q += 1
+
+        elif leftDepth > rightDepth:
+            val = X[i][j] + sol[i + 1][j + 1][0]
+            depth = sol[i + 1][j + 1][1]
+
+            for k in range(0, depth + 1):
+                val += X[i + k + 1][j]
+            
+            if val <= X[i][j]:
+                sol[i][j] = [val, depth + 1]
+            else:
+                sol[i][j] = [X[i][j], 0]
+
+            q = depth + 2
+            while q < leftDepth + 2:
+                for w in range(0, q + 1):
+                    val += X[i + q][j + w]
+
+                if val <= sol[i][j][0]:
+                    sol[i][j] = [val, q]
+
+                q += 1
+            
+            
+
+        """
+        # Go adding rows until the biggest depth value
+
+        # Keep the best value
+
+        # Check considering right subtriangle
+        val = X[i][j] + sol[i + 1][j + 1][0]
+        depth = sol[i + 1][j + 1][1]
+
+        for k in range(0, depth + 1):
             val += X[i + k + 1][j]
 
         if (val <= X[i][j]):
             # The total sum obtained for that position is lower
-            sol[i][j] = [val, maxDepth + 1]
+            sol[i][j] = [val, depth + 1]
         else:
             sol[i][j] = [X[i][j], 0]
+
+        # Check considering left subtriangle
+        val = X[i][j] + sol[i + 1][j][0]
+        depth = sol[i + 1][j][1]
+
+        for k in range(0, depth + 1):
+            val += X[i + k + 1][j + k + 1]
+
+        if (val < sol[i][j][0]):
+            # The total sum obtained for that position is lower
+            sol[i][j] = [val, depth + 1]
+
+        # Check all the intermediate triangles between the two
+        diff = abs(sol[i + 1][j][1] - sol[i + 1][j + 1][1])
+        if diff != 0:
+            # Different depths
+            leftDeeper = sol[i + 1][j][1] > sol[i + 1][j + 1][1]
+            if leftDeeper:
+                val = X[i][j] + sol[i + 1][j + 1][0]
+                depth = sol[i + 1][j + 1][1]
+
+                for k in range(0, depth + 1):
+                    val += X[i + k + 1][j]
+
+                for i in range()
+
+
+            else:
+                # Right subtriangle deeper
+                val = X[i][j] + sol[i + 1][j][0]
+                depth = sol[i + 1][j][1]
+
+                for k in range(0, depth + 1):
+                    val += X[i + k + 1][j + k + 1]
+
+        #else:
+        #    sol[i][j] = [X[i][j], 0]
+        """
 
 # TDD
 print(sol[0][0][0], "should be", -23)

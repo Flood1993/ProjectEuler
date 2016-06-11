@@ -114,3 +114,18 @@ def totient(n):
         res = int(res*(fac[0] - 1)/fac[0])
     
     return res
+
+def ap_sqrt(n, steps):
+	"""
+	Approximates the sqrt values of some number following some magic algorithm
+	Only displays digits
+	"""
+	a, b = 5*n, 5
+
+	for i in range(steps):
+		if a >= b:
+			a, b = a-b, b+10
+		else:
+			a, b = 100*a, 10*b - 45
+		
+	return b

@@ -13,7 +13,7 @@ def getNextNumber():
     return t - sub
 
 X = []
-for i in range(1, 11): # TODO: set this to 1001
+for i in range(1, 1001): # TODO: set this to 1001
     toAdd = []
     for j in range(i):
         toAdd.append(getNextNumber())
@@ -87,8 +87,11 @@ for i in range(len(sol) - 2, -1, -1):
             else:
                 sol[i][j] = [X[i][j], 0]
 
+            tmp = 0
+            if i != len(sol) - 2:
+                tmp = sol[i+2][j+1][1]
             q = depth + 2
-            while q < rightDepth + 2:
+            while q < max(rightDepth + 2, tmp+3):
                 for w in range(0, q + 1):
                     val += X[i + q][j + w]
 
@@ -109,8 +112,11 @@ for i in range(len(sol) - 2, -1, -1):
             else:
                 sol[i][j] = [X[i][j], 0]
 
+            tmp = 0
+            if i != len(sol) - 2:
+                tmp = sol[i+2][j+1][1]
             q = depth + 2
-            while q < leftDepth + 2:
+            while q < max(leftDepth + 2, tmp + 3):
                 for w in range(0, q + 1):
                     val += X[i + q][j + w]
 

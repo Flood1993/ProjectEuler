@@ -13,9 +13,11 @@ def prime_sieve(n):
                 res[j] = False
     return res
 
+
 def optimised_sieve(n):
     """
-    Returns a prime sieve with the numbers up to n, only containing the odd numbers
+    Returns a prime sieve with the numbers up to n, only containing the odd
+    numbers
 
     res[k] corresponds to the number 2*k + 1
     e.g: res[3] = 2*3 + 1 = 7 = True (prime)
@@ -33,15 +35,18 @@ def optimised_sieve(n):
                 res[j] = False
     return res
 
+
 def pythTriplet(m, n, d = 1):
     """
     Returns a Pythagorean triplet obtained from the values m and n.
 
-    It will be primitive if and only if exactly one of m, n is even and gcd(m, n) = 1.
+    It will be primitive if and only if exactly one of m, n is even and
+    gcd(m, n) = 1.
     """
     if m < n:
         m, n = n, m
     return [(m*m - n*n)*d, (2*m*n)*d, (m*m + n*n)*d]
+
 
 def gcd(a, b):
     """
@@ -52,6 +57,7 @@ def gcd(a, b):
     while b != 0:
        a, b = b, a%b
     return a
+
 
 def prime_factorization(n):
     """
@@ -87,8 +93,9 @@ def prime_factorization(n):
         factor += 2
     if n != 1:
         res.append([n, 1])
-    
+
     return res
+
 
 def number_of_divisors(n):
     """
@@ -102,18 +109,20 @@ def number_of_divisors(n):
 
     return res
 
+
 def totient(n):
     """
-    Returns the Euler's totient function of n, that is, the count of the positive integers
-    up to n that are relatively prime to it
+    Returns the Euler's totient function of n, that is, the count of the
+    positive integers up to n that are relatively prime to it
     """
     prime_fac = prime_factorization(n)
     res = n
 
     for fac in prime_fac:
         res = int(res*(fac[0] - 1)/fac[0])
-    
+
     return res
+
 
 def ap_sqrt(n, steps):
 	"""
@@ -127,5 +136,5 @@ def ap_sqrt(n, steps):
 			a, b = a-b, b+10
 		else:
 			a, b = 100*a, 10*b - 45
-		
+
 	return b

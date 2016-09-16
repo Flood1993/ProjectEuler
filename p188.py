@@ -9,7 +9,7 @@ while True:
         break
     numbers.append(n)
     counter += 1
-    n = (n * n) % 10000000
+    n = (n * n) % 100000000
 
 print('Repeating after', counter, 'iterations. The repeating sequence is', n) # 12503 iterations
 

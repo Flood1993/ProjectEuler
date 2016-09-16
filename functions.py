@@ -25,7 +25,7 @@ def optimised_sieve(n):
     To check if an ODD integer k is prime, we have to look at index k//2
     Be careful becase number TWO is not included in the sieve
     """
-    sieve_bound = (n-1)//2
+    sieve_bound = n//2
     res = [True]*sieve_bound
     res[0] = False
     crosslimit = int(((n**0.5) - 1)//2)
@@ -33,6 +33,19 @@ def optimised_sieve(n):
         if res[i]:
             for j in range(2*i*(i+1), sieve_bound, 2*i + 1):
                 res[j] = False
+    return res
+
+
+def primes_up_to(n):
+    """
+    Returns a list containing all primes up to n
+    """
+    sieve = optimised_sieve(n)
+    res = [2]
+    for i in range(len(sieve)):
+        if sieve[i]:
+            res.append(2*i + 1)
+
     return res
 
 
@@ -125,16 +138,16 @@ def totient(n):
 
 
 def ap_sqrt(n, steps):
-	"""
-	Approximates the sqrt values of some number following some magic algorithm
-	Only displays digits
-	"""
-	a, b = 5*n, 5
+    """
+    Approximates the sqrt values of some number following some magic algorithm
+    Only displays digits
+    """
+    a, b = 5*n, 5
 
-	for i in range(steps):
-		if a >= b:
-			a, b = a-b, b+10
-		else:
-			a, b = 100*a, 10*b - 45
+    for i in range(steps):
+        if a >= b:
+            a, b = a-b, b+10
+        else:
+            a, b = 100*a, 10*b - 45
 
-	return b
+    return b

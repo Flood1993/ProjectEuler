@@ -13,3 +13,9 @@ En un tercio de los casos, serán iguales
     Si son iguales, quiere decir que 1/2 de las veces el de en medio vendrá fijo, y 1/2 de las veces será a elegir entre 2
 En dos tercios de los casos, serán diferentes, lo que significa que el de siempre siempre vendrá fijo
 """
+
+L = [3, 24, 528, 31968]
+
+for i in range(1, len(L)):
+    for j in range(i):
+        print(L[i], L[j], L[i]/L[j])

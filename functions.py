@@ -151,3 +151,48 @@ def ap_sqrt(n, steps):
             a, b = 100*a, 10*b - 45
 
     return b
+
+def continued_fraction(x):
+    """
+    Returns the continued fraction of x as a list of tuples (a,b,c),
+    where:
+
+        a + (sqrt(x)+b / c)
+
+    represents each step.
+    
+    If we are interested on the notation of the form [4;(1,3,1,8)],
+    we must take the first value from each tuple.
+
+    Note: Be careful if the value passed is a perfect square.
+    """
+    res = []
+
+    a = floor(x**0.5)
+    b = -floor(x**0.5)
+    c = 1    
+
+    t = (a,b,c)
+    res.append(t)
+
+    while True:
+        a, b, c = res[-1][0], res[-1][1], res[-1][2]
+        a1 = floor(c*(x**0.5 - b)/(x - b*b))
+        b1 = -b * c
+        c1 = x - b*b
+        b1 -= a1*c1
+
+        _gcd = gcd(b1, c1)
+        _gcd = gcd(_gcd, c)
+        b1 //= _gcd
+        c1 //= _gcd
+        
+        t = (a1, b1, c1)
+        
+        if t in res: # All continued fractions are periodic
+            res.append(t)
+            break
+
+        res.append(t)
+    
+    return res

@@ -10,7 +10,7 @@ n**2 will be an even number. -ON HOLD-
 
 from functions import primes_up_to
 
-primes = primes_up_to(1000000):
+primes = primes_up_to(1000000)
 
 for i in range(2, 1000):
     ii = i*i

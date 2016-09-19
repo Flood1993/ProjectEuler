@@ -1,22 +1,10 @@
-numbers = []
+base = 3
+exp = 2
 
-n = 1777
+num = 1
 
-counter = 0
+for i in range(exp):
+    num *= base
 
-while True:
-    if n in numbers:
-        break
-    numbers.append(n)
-    counter += 1
-    n = (n * n) % 100000000
+print(pow(base, num))#, 10**8))
 
-print('Repeating after', counter, 'iterations. The repeating sequence is', n) # 12503 iterations
-
-for i in range(len(numbers)):
-    if numbers[i] == n:
-        print(i)
-        break
-
-# It gets to a point in which it starts repeating over again
-print(n, numbers[3])

@@ -12,4 +12,4 @@ for number in numbers:
   for i in range(number, target+1):
     ways[i] += ways[i-number]
  
-print ways[target]
+print(ways[target])

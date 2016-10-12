@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DIGITS_LIMIT 10
+#define DIGITS_LIMIT 40
 
 long long step_pand(int last_dig, bool zero, bool nine, int cur_digits, int *memo) {
     long long tmp = 0;
@@ -33,8 +33,10 @@ long long step_pand(int last_dig, bool zero, bool nine, int cur_digits, int *mem
         } else if (last_dig == 9) {
             tmp += step_pand(8, zero, true, cur_digits + 1, memo);
         } else {
-            tmp += step_pand(last_dig - 1, zero, nine, cur_digits + 1, memo);
-            tmp += step_pand(last_dig + 1, zero, nine, cur_digits + 1, memo);
+            bool next_zero = (last_dig - 1 == 0);
+            bool next_nine = (last_dig + 1 == 9);
+            tmp += step_pand(last_dig - 1, zero || next_zero, nine , cur_digits + 1, memo);
+            tmp += step_pand(last_dig + 1, zero, nine || next_nine, cur_digits + 1, memo);
         }
 
         memo[hash] = tmp;
@@ -46,12 +48,14 @@ long long step_pand(int last_dig, bool zero, bool nine, int cur_digits, int *mem
     } else if (last_dig == 9) {
         tmp += step_pand(8, zero, true, cur_digits + 1, memo);
     } else {
-        tmp += step_pand(last_dig - 1, zero, nine, cur_digits + 1, memo);
-        tmp += step_pand(last_dig + 1, zero, nine, cur_digits + 1, memo);
+        bool next_zero = (last_dig - 1 == 0);
+        bool next_nine = (last_dig + 1 == 9);
+        tmp += step_pand(last_dig - 1, zero || next_zero, nine, cur_digits + 1, memo);
+        tmp += step_pand(last_dig + 1, zero, nine || next_nine, cur_digits + 1, memo);
     }
 
-    memo[hash] = 0;
-    return 0;
+    memo[hash] = tmp;
+    return tmp;
 }
 
 int main() {
@@ -66,7 +70,7 @@ int main() {
     }
     res += step_pand(9, false, true,  1, memo);
 
-    printf("%ld\n", res);
+    printf("Result: %ld\n", res);
 
     free(memo);
     return 0;

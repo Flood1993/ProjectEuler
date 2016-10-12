@@ -4,7 +4,7 @@
 
 #define DIGITS_LIMIT 40
 
-long long step_pand(int last_dig, bool zero, bool nine, int cur_digits, int *memo) {
+long long step_pand(int last_dig, bool zero, bool nine, int cur_digits, long *memo) {
     long long tmp = 0;
     
     if (cur_digits > DIGITS_LIMIT) {
@@ -62,8 +62,8 @@ int main() {
     long long res = 0;
 
     int size_to_alloc = 12000;
-    int *memo = (int *) malloc(size_to_alloc * sizeof(int));
-    memset(memo, -1, size_to_alloc * sizeof(int));
+    long *memo = (long *) malloc(size_to_alloc * sizeof(long));
+    memset(memo, -1, size_to_alloc * sizeof(long));
 
     for (int i = 1; i < 9; i++) {
         res += step_pand(i, false, false, 1, memo);

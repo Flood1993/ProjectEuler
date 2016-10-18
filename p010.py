@@ -31,4 +31,4 @@ for i in range (3, 2000000, 2):
     if isprime(i):
         res = res + i
         
-print str(res)
+print(str(res))

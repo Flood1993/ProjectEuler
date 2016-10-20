@@ -1,10 +1,13 @@
-base = 3
-exp = 2
+values = []
 
-num = 1
+a = 1777
+LIMIT = 1855
+m = 10**8
 
-for i in range(exp):
-    num *= base
+values.append(0)
+values.append(a) # a^^1
 
-print(pow(base, num))#, 10**8))
+for i in range(2, LIMIT + 1):
+	values.append(pow(a, values[-1], m)) # a^^n+1 = a^(a^^n)
 
+print(values[-1])

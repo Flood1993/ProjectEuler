@@ -17,3 +17,8 @@ Furthermore, since many problems might benefit from specific functions
 (such as efficient prime sieve generation or probabilistic primality
 tests), I have compiled the ones I consider relevant enough in
 [functions.py](https://github.com/Flood1993/ProjectEuler/blob/master/functions.py).
+
+# Disclaimer
+
+Note that it is possible to simply look for the solutions online and submit
+them to cheat a score in the website.

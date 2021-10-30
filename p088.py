@@ -70,6 +70,67 @@ assert f(6) == 12, f(6)
 assert sum_f_k(6) == 30
 assert sum_f_k(12) == 61
 
-print('Unit tests OK')
+print('First attempt unit tests OK, even tho it does not scale well')
 
-print(sum_f_k(12000))
+
+class Memo:
+    def __init__(self):
+        self._memo = dict()
+
+    def get(self, key):
+        return self._memo.get(key)
+
+    def memo(self, key, value):
+        self._memo[key] = value
+
+    def memo_if_lower(self, key, value):
+        current_value = self.get(key)
+
+        if current_value is None or value < current_value:
+            self.memo(key, value)
+
+memo2 = Memo()
+
+def f(prod_til_now, sum_til_now, ones_left, not_ones_so_far):
+    global memo2
+    for i in range(2, 12001):
+        new_prod = prod_til_now * i
+        new_sum = sum_til_now + i
+        new_ones_left = ones_left - 1
+        new_not_ones_so_far = not_ones_so_far + 1 
+
+        if new_prod == new_sum:
+            solution = new_prod  # or new_sum since they are equal
+            memo2.memo_if_lower(new_not_ones_so_far, solution)
+
+        if new_prod > new_sum + new_ones_left:
+            break
+
+        memo2.memo_if_lower(new_not_ones_so_far + (new_prod - new_sum), new_prod)
+
+        f(new_prod, new_sum, new_ones_left, new_not_ones_so_far)
+
+def sum_f_k2(n):
+    """
+    Return the sum of f(k) for k in 2 <= k <= n
+    """
+    answers = set()
+    for k in range(2, n + 1):
+        if k % 100 == 0:
+            print(f'Getting solution for {k}')
+        answers.add(memo2.get(k))
+
+    return sum(answers)
+
+f(1, 0, 12000, 0)
+
+assert memo2.get(2) == 4, memo2.get(2)
+assert memo2.get(3) == 6, memo2.get(2)
+assert memo2.get(4) == 8, memo2.get(2)
+assert memo2.get(5) == 8, memo2.get(2)
+assert memo2.get(6) == 12, memo2.get(2)
+
+assert sum_f_k2(6) == 30, sum_f_k2(6)
+assert sum_f_k2(12) == 61, sum_f_k2(12)
+
+print(sum_f_k2(12000))

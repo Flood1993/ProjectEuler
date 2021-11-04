@@ -15,6 +15,7 @@ def prime_sieve(n):
                 res[j] = False
     return res
 
+# TODO: For 1000 this returns 961 as prime?
 def optimised_sieve(n):
     """
     Returns a prime sieve with the numbers up to n, only containing the odd
@@ -41,11 +42,11 @@ def primes_up_to(n):
     """
     Returns a list containing all primes up to n
     """
-    sieve = optimised_sieve(n)
+    sieve = prime_sieve(n)
     res = [2]
     for i in range(len(sieve)):
         if sieve[i]:
-            res.append(2*i + 1)
+            res.append(i)
 
     return res
 

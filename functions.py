@@ -25,7 +25,7 @@ def optimised_sieve(n):
     e.g: res[3] = 2*3 + 1 = 7 = True (prime)
 
     To check if an ODD integer k is prime, we have to look at index k//2
-    Be careful becase number TWO is not included in the sieve
+    Be careful because number TWO is not included in the sieve
     """
     sieve_bound = n//2
     res = [True]*sieve_bound
